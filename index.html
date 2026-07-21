@@ -111,7 +111,7 @@ const T=(x)=>x; // passthrough
 
 const DATA=[
  {id:"orient",icon:"◎",title:"Orientation & Access",sub:"Know what you're looking at, and who can see what.",topics:[
-  {q:"What we see on the customer's account page, and how to tell RCB apart from the rest of Certinia",s:"tested",
+  {q:"What we see on the customer's account page, and how to tell RCB apart from the rest of Certinia",s:"tested",shot:"img/gr-04-account.jpg",
    obj:"Groove runs two financial layers on the Account: <b>Revenue Cloud Billing (RCB)</b> — the native Salesforce billing engine (Orders, Billing Schedules, Invoices, Payments) — and <b>Certinia/AcctSeed</b> — the accounting/GL layer. On an Account you'll see related lists from both.",
    where:"Open any <code>Account</code> → Related tab.",
    steps:["<b>RCB objects</b> (this is billing): <span class='pill'>Orders</span> <span class='pill'>Billing Schedules</span> <span class='pill'>Invoices</span> <span class='pill'>Payments</span> <span class='pill'>Credit Memos</span> — these are standard Salesforce objects, no managed-package prefix.",
@@ -471,7 +471,7 @@ const DATA=[
  ]},
 
  {id:"cx",icon:"☺",title:"Customer Experience & Portal",sub:"What the customer sees, and managing portal access.",topics:[
-  {q:"What the customer sees when they click the payment link",s:"tested",
+  {q:"What the customer sees when they click the payment link",s:"tested",shot:"img/gr-02-paylink.jpg",
    obj:"The hosted pay page.",
    where:"Chargent hosted Payment Request page (public Site).",
    steps:["A <b>Groove-branded payment page</b>: \"Welcome to Groove Technology Solutions…\" with card + billing-address fields and a <b>Confirm &amp; Pay $[amount]</b> button pre-filled to the invoice.",
@@ -522,7 +522,7 @@ const DATA=[
    "Mark the primary/billing contact as needed.",
    "These become candidates for Bill-To, portal access, and notifications."],
    sample:"Accounts like Dazeworks Test1 Hello already carry 20+ contacts."},
-  {q:"How to set up customer groupings (key customers with multiple properties)",s:"standard",
+  {q:"How to set up customer groupings (key customers with multiple properties)",s:"tested",shot:"img/gr-07-grouping.jpg",
    obj:"Group many property accounts under one key customer for reporting/billing.",
    where:"Account hierarchy (Parent Account) or a grouping field.",
    steps:["Use the <b>Parent Account</b> hierarchy: set each property account's <b>Parent</b> to the key-customer account.",
@@ -552,14 +552,14 @@ const DATA=[
  ]},
 
  {id:"report",icon:"📊",title:"Reporting & Reconciliation",sub:"Balances, statements, aging, GL reconciliation, counts.",topics:[
-  {q:"How to see what invoices are open",s:"standard",
+  {q:"How to see what invoices are open",s:"tested",shot:"img/gr-01-invoice.jpg",
    obj:"Current open AR.",
    where:"Invoices list view / report.",
    steps:["Open <b>Invoices</b> → filter <b>Status = Posted</b> and <b>Balance &gt; 0</b>.",
    "Save as an <b>\"Open Invoices\"</b> list view/report; add Account, Due Date, Balance, Collection Status, Subscription Agreement Number.",
    "Sort by Due Date for a working AR list."],
    sample:"Open invoices in the sandbox include DOC-000000005 ($174), DOC-000000029 ($5,000), etc."},
-  {q:"How to see what the next monthly payment is",s:"standard",
+  {q:"How to see what the next monthly payment is",s:"tested",shot:"img/gr-03-bsg.jpg",
    obj:"What/when the customer is billed next.",
    where:"Billing Schedule Group → Next Billing Date + Period Amount.",
    steps:["Open the account's <b>Billing Schedule Group</b> → read <b>Next Billing Date</b> and <b>Billing Period Amount</b>.",
@@ -597,7 +597,7 @@ const DATA=[
    "Remaining amount = periods left × period amount (for payoff quotes).",
    "Report on Contracts by End Date for upcoming completions/renewals."],
    note:"Contract object is present; confirm which of Contract vs Billing Schedule Groove treats as the term of record."},
-  {q:"Different report types for reconciliation, aging, turnover, etc.",s:"standard",
+  {q:"Different report types for reconciliation, aging, turnover, etc.",s:"standard",shot:"img/gr-06-reports.jpg",
    obj:"The reporting toolkit for Finance.",
    where:"Reports → custom report types on RCB objects.",
    steps:["<b>Reconciliation:</b> Invoices + Payments + Credit Memos for a period (billed vs collected).",
@@ -637,7 +637,7 @@ const DATA=[
    "Confirm no further invoices will generate after that date.",
    "Handle any final/partial-period invoice and settle the remaining balance."],
    note:"Confirm the exact cancel action and whether a proration/final invoice is expected — do the first one with SaaScend."},
-  {q:"How to see if a payment failed",s:"tested",
+  {q:"How to see if a payment failed",s:"tested",shot:"img/gr-05-chargeorder.jpg",
    obj:"Find failed collections quickly.",
    where:"Invoice Collection Status + Charge Order Transactions.",
    steps:["Invoice <b>Collection Status = Failed</b> and <b>Last Collection Error</b> shows the gateway message.",
@@ -683,6 +683,7 @@ DATA.forEach(sec=>{
         (tp.where?"<div class='lbl'>Where</div><div class='where'>"+tp.where+"</div>":"")+
         (steps?"<div class='lbl'>Steps</div><ol>"+steps+"</ol>":"")+
         (tp.sample?"<div class='sample'>🔎 <b>Sample / verified:</b> "+tp.sample+"</div>":"")+
+        (tp.shot?"<div class='lbl'>Screenshot — live org</div><a href='"+tp.shot+"' target='_blank' rel='noopener'><img src='"+tp.shot+"' alt='live org screenshot' loading='lazy' style='max-width:100%;border:1px solid var(--line);border-radius:8px;margin-top:4px;display:block'/></a>":"")+
         (tp.note?"<div class='note'>⚠ <b>Note:</b> "+tp.note+"</div>":"")+
       "</div>";
     d.querySelector('button.q').addEventListener('click',()=>d.classList.toggle('open'));
