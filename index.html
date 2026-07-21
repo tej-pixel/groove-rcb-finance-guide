@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Groove RCB — Finance UAT & Enablement Guide</title>
+<style>
+:root{
+  --navy:#0f2a43; --navy2:#163a5c; --teal:#1fb6a6; --teal-d:#159487;
+  --ink:#1b2733; --muted:#5b6b7b; --line:#e3e9ef; --bg:#f5f7fa; --card:#fff;
+  --amber:#e08a1e; --green:#22a06b; --blue:#2f7ad1; --red:#d6455b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+a{color:var(--teal-d);text-decoration:none}
+a:hover{text-decoration:underline}
+header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:26px 30px 22px}
+header.top .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700}
+header.top h1{margin:6px 0 4px;font-size:26px;font-weight:750}
+header.top p{margin:0;color:#c6d4e2;font-size:14px;max-width:820px}
+.orglinks{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.orglinks a{background:rgba(255,255,255,.11);color:#eaf1f8;border:1px solid rgba(255,255,255,.18);padding:5px 11px;border-radius:20px;font-size:12.5px}
+.orglinks a:hover{background:rgba(31,182,166,.28);text-decoration:none}
+.wrap{display:flex;max-width:1280px;margin:0 auto;align-items:flex-start}
+nav.side{position:sticky;top:0;align-self:flex-start;width:270px;flex:0 0 270px;height:100vh;overflow-y:auto;padding:18px 12px 40px;border-right:1px solid var(--line);background:#fff}
+nav.side .search{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;margin-bottom:12px}
+nav.side a.navsec{display:block;padding:7px 10px;border-radius:7px;color:var(--ink);font-size:13.5px;font-weight:600}
+nav.side a.navsec:hover{background:var(--bg);text-decoration:none}
+nav.side a.navsec .n{color:var(--muted);font-weight:600;font-size:12px;float:right}
+main{flex:1;min-width:0;padding:22px 30px 80px}
+.legend{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:22px;font-size:13px;color:var(--muted)}
+.legend b{color:var(--ink)}
+.badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:20px;vertical-align:middle}
+.b-tested{background:#e6f6ee;color:var(--green)}
+.b-standard{background:#fdf1e0;color:var(--amber)}
+.b-config{background:#e8f1fb;color:var(--blue)}
+section.sec{margin-bottom:30px}
+section.sec>h2{font-size:19px;margin:0 0 4px;padding-top:8px;display:flex;align-items:center;gap:10px}
+section.sec>h2 .ic{width:30px;height:30px;border-radius:8px;background:var(--navy);color:var(--teal);display:inline-flex;align-items:center;justify-content:center;font-size:15px;flex:0 0 30px}
+section.sec>.subtitle{color:var(--muted);font-size:13px;margin:0 0 14px}
+.topic{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.topic>button.q{width:100%;text-align:left;background:none;border:0;padding:14px 46px 14px 16px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;position:relative;line-height:1.4}
+.topic>button.q:hover{background:#fafcfe}
+.topic>button.q .chev{position:absolute;right:16px;top:15px;color:var(--muted);transition:transform .18s}
+.topic.open>button.q .chev{transform:rotate(90deg)}
+.topic>button.q .bwrap{float:right;margin-left:12px}
+.body{display:none;padding:2px 16px 18px;border-top:1px solid var(--line)}
+.topic.open .body{display:block}
+.body .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-d);font-weight:700;margin:14px 0 4px}
+.body p{margin:4px 0}
+.body ol{margin:6px 0 6px;padding-left:22px}
+.body ol li{margin:5px 0}
+.body ul{margin:6px 0;padding-left:20px}
+.where{background:var(--bg);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.where code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--navy)}
+.sample{border-left:3px solid var(--teal);background:#f2fbfa;padding:8px 12px;border-radius:0 8px 8px 0;font-size:13px;margin-top:10px}
+.note{border-left:3px solid var(--amber);background:#fef8ef;padding:8px 12px;border-radius:0 8px 8px 0;font-size:13px;margin-top:10px}
+.note.red{border-color:var(--red);background:#fdf0f2}
+kbd{background:var(--navy);color:#fff;border-radius:4px;padding:1px 6px;font-size:11.5px;font-family:inherit}
+.pill{display:inline-block;background:var(--navy);color:#fff;border-radius:5px;padding:1px 7px;font-size:12px;margin:0 1px}
+footer{max-width:1280px;margin:0 auto;padding:24px 30px 60px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line)}
+.nohits{display:none;padding:30px;text-align:center;color:var(--muted)}
+@media(max-width:860px){nav.side{display:none}main{padding:18px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kick">SaaScend × Groove · Revenue Cloud Billing</div>
+  <h1>Finance UAT &amp; Enablement Guide</h1>
+  <p>Everything the Finance team needs to run billing on Revenue Cloud Billing (RCB) — starting subscriptions, invoicing, taking payments, collections, the customer experience, and reporting/reconciliation. Click any question to expand step-by-step instructions.</p>
+  <div class="orglinks" id="orglinks"></div>
+</header>
+
+<div class="wrap">
+  <nav class="side">
+    <input class="search" id="search" placeholder="Search all topics…" autocomplete="off"/>
+    <div id="navlist"></div>
+  </nav>
+  <main>
+    <div class="legend">
+      <b>How to read the badges:</b>
+      <span class="badge b-tested">Built &amp; tested</span> verified in this build/UAT ·
+      <span class="badge b-standard">Confirm in org</span> standard platform behavior — validate the exact clicks together during UAT ·
+      <span class="badge b-config">Admin / config</span> a setup task (often SaaScend/admin, not day-to-day Finance).
+      <br/><span style="font-size:12px">Sandbox: <code style="background:#fff;border:1px solid var(--line);padding:1px 5px;border-radius:4px">groove--fc.sandbox.lightning.force.com</code> — use the sample records to click along.</span>
+    </div>
+    <div id="content"></div>
+    <div class="nohits" id="nohits">No topics match your search.</div>
+  </main>
+</div>
+<footer>
+  Prepared by SaaScend for Groove Technology Solutions · Revenue Cloud Billing enablement · Sandbox training copy.
+  Report gaps or corrections to your SaaScend contact. Badged “Confirm in org” items are validated jointly during the Finance UAT session.
+</footer>
+
+<script>
+const BASE="https://groove--fc.sandbox.lightning.force.com";
+const ORGLINKS=[
+  ["Invoices",BASE+"/lightning/o/Invoice/list"],
+  ["Billing Schedules",BASE+"/lightning/o/BillingSchedule/list"],
+  ["Orders",BASE+"/lightning/o/Order/list"],
+  ["Accounts",BASE+"/lightning/o/Account/list"],
+  ["Opportunities",BASE+"/lightning/o/Opportunity/list"],
+  ["Reports",BASE+"/lightning/o/Report/home"],
+  ["Sample invoice (DOC-000000005)",BASE+"/lightning/r/Invoice/3ttVB0000002K97YAE/view"]
+];
+// helper to build a Lightning list link
+const T=(x)=>x; // passthrough
+
+const DATA=[
+ {id:"orient",icon:"◎",title:"Orientation & Access",sub:"Know what you're looking at, and who can see what.",topics:[
+  {q:"What we see on the customer's account page, and how to tell RCB apart from the rest of Certinia",s:"tested",
+   obj:"Groove runs two financial layers on the Account: <b>Revenue Cloud Billing (RCB)</b> — the native Salesforce billing engine (Orders, Billing Schedules, Invoices, Payments) — and <b>Certinia/AcctSeed</b> — the accounting/GL layer. On an Account you'll see related lists from both.",
+   where:"Open any <code>Account</code> → Related tab.",
+   steps:["<b>RCB objects</b> (this is billing): <span class='pill'>Orders</span> <span class='pill'>Billing Schedules</span> <span class='pill'>Invoices</span> <span class='pill'>Payments</span> <span class='pill'>Credit Memos</span> — these are standard Salesforce objects, no managed-package prefix.",
+   "<b>Certinia objects</b> (this is the GL/accounting): related lists whose API names carry the <code>c2g__</code> (Certinia) or AcctSeed namespace — journals, GL accounts, cash entries, etc.",
+   "<b>Chargent</b> (this is the payment gateway): <span class='pill'>Charge Orders</span> and <span class='pill'>Transactions</span> hold the actual card/ACH activity and tokens.",
+   "Rule of thumb for Finance: <b>bill the customer → RCB</b>; <b>take the money → Chargent</b>; <b>book to the ledger → Certinia</b>."],
+   note:"The exact set of related lists shown is controlled by the Account page layout / Lightning record page — we can pin the RCB lists to the top so Finance doesn't have to hunt."},
+  {q:"How someone without RCB access can still see basic info (open balance, what the bill is)",s:"standard",
+   obj:"Non-billing users (e.g., CSMs, techs) shouldn't need full RCB access to answer \"how much do they owe?\"",
+   where:"Account page → a summary field/section, or a shared read-only report.",
+   steps:["Simplest: expose an <b>Account roll-up / formula</b> such as <i>Open Balance</i> and <i>Next Payment</i> on the Account layout so anyone with Account read access sees it.",
+   "Alternatively, share a read-only <b>\"Open Invoices\"</b> report/list view filtered to their accounts (see Reporting section).",
+   "For the customer themselves, the <b>customer portal / pay link</b> shows their open balance without any internal access."],
+   note:"Confirm during UAT which roll-up fields exist on Account (Open Balance, Next Billing Date). If not present, that's a quick admin add."},
+  {q:"Navigating RCB — the objects and how they connect",s:"tested",
+   obj:"A quick mental model so every later task makes sense.",
+   where:"Global nav / App Launcher → Revenue Lifecycle Management.",
+   steps:["<b>Opportunity</b> (Closed Won) → drives the <b>Project</b> → which activates an <b>Order</b>.",
+   "<b>Order</b> (Activated) → generates a <b>Billing Schedule</b> (the recurring plan) under a <b>Billing Schedule Group</b>.",
+   "The Billing Schedule → produces <b>Invoices</b> (with <b>Invoice Lines</b>) on each billing date.",
+   "A posted <b>Invoice</b> → creates a Chargent <b>Charge Order</b> (auto-charge) or a <b>Payment Request</b> (pay-link), and a <b>Conga</b> PDF.",
+   "<b>Payments</b> / <b>Credit Memos</b> / <b>Refunds</b> apply against the Invoice and settle the balance."],
+   sample:"Trace one live: Opportunity → Order → Billing Schedule → Invoice on a sample account like <b>The House Apartments</b>."}
+ ]},
+
+ {id:"start",icon:"▶",title:"Starting Subscriptions",sub:"Automatic from Opportunity, manual, and fixing a bad setup.",topics:[
+  {q:"How a subscription is started start-to-finish automatically from an Opportunity (all invoice types)",s:"tested",
+   obj:"The happy path: sales closes an Opportunity, and billing spins up automatically with the right invoice template (Simple, Phone-Itemized, or Multi-Line).",
+   where:"<code>Opportunity</code> → its <code>Project</code> (pse__Proj__c) → auto-creates the Order/Billing/Invoice chain.",
+   steps:["Add <b>Products</b> to the Opportunity and set the amounts (this is what becomes the invoice lines). <i>Closing with no products is now blocked by a validation rule.</i>",
+   "Set the Opportunity to <b>Closed Won</b>. The linked Project is created/updated.",
+   "When the Project reaches a qualifying stage (e.g. <i>Installation Complete – Awaiting Tech Paperwork</i> or <i>Project Complete</i>, or <b>Bill with RCB</b> is checked), the flow <b>Project: Activate Order (RCB)</b> fires.",
+   "That flow: picks the invoice template by account (Simple / Cardinal Phone-Itemized / Atria Multi-Line), normalizes the Order onto the active Sales Price Book, builds the Order Products, sets the Bill-To contact, and <b>Activates the Order</b>.",
+   "Order activation → the packaged <b>Billing Schedule</b> flow creates the recurring schedule → the first <b>Invoice</b> posts on the billing date.",
+   "On post, the bridge creates the Chargent <b>Charge Order</b> (auto-collect accounts) or a <b>Payment Request</b> pay-link (invoice-only accounts) and the <b>Conga PDF</b>."],
+   sample:"Multi-line example verified: Atria order 00000173 now itemizes each product; invoice template is chosen from <code>Account.Invoice_Template_Type</code>.",
+   note:"Invoice type is driven by the account (Simple by default; Phone-Itemized for Cardinal-parented; Multi-Line for Atria-parented). Confirm the account's parent/template mapping if the wrong template appears."},
+  {q:"How to troubleshoot if the automatic process doesn't work",s:"tested",
+   obj:"When an Opportunity is Closed Won but no Order/Invoice/Charge Order appears.",
+   where:"Check in this order: Opportunity → Project → Order → Invoice → Charge Order.",
+   steps:["<b>No Order created?</b> Check the Project stage meets the flow criteria and RecordType = Parent, the Opp isn't <i>Lender Only</i> billing party, and Products exist. Re-touch the Project stage to re-trigger.",
+   "<b>Order not activating?</b> Confirm a Bill-To contact exists on the account (or its parent), and that the product has an active PricebookEntry on the Sales Price Book.",
+   "<b>Invoice posted but no Charge Order?</b> The account needs a valid single <b>billing email</b> — if <code>Invoice_Emails</code> holds multiple comma-separated addresses only the first is used; if it's blank the Charge Order can't be created. Also check the invoice's <b>Chargebee_ID</b> is blank (legacy Chargebee invoices are excluded by design).",
+   "<b>Charge Order created but not charged?</b> Look at the Charge Order's Transactions for the gateway response (e.g. \"This transaction has been declined\"); a decline flips the invoice to <b>Collection Status = Failed</b> and captures the error in <b>Last Collection Error</b>.",
+   "<b>Still stuck?</b> Setup → Flows → check the flow's error emails, or ask SaaScend to pull a debug log of the post."],
+   note:"The single most common cause we saw in UAT: an account with a multi-address or blank billing email. Fix the account email, then re-post."},
+  {q:"How to start a subscription manually (all invoice types)",s:"standard",
+   obj:"When there's no Opportunity (e.g. a migrated or off-cycle customer) and Finance needs to stand up billing by hand.",
+   where:"<code>Order</code> (new) → add Order Products → Activate → Billing Schedule.",
+   steps:["Create an <b>Order</b> on the account, set the <b>Price Book</b> to the active Sales Price Book, Start Date, and Bill-To contact.",
+   "Add <b>Order Products</b> — one line per billable item (this drives Simple vs Multi-Line: one line = simple, many = itemized).",
+   "Set the account's <b>Invoice Template Type</b> (Simple / Phone Itemized / Multi-Line Itemized) so the correct Conga PDF is used.",
+   "<b>Activate</b> the Order → the Billing Schedule is created automatically and the first invoice will post on the billing date.",
+   "Verify the Billing Schedule Group shows the expected amount and next billing date."],
+   note:"Confirm the exact manual Order → Activate clicks in-org during UAT; the automation path (above) is the tested one."},
+  {q:"How to override the Opportunity subscription setup if it's incorrect",s:"standard",
+   obj:"Sales set up the Opportunity/Products wrong and it flowed through to billing.",
+   where:"Correct at the level that's wrong, then re-run activation.",
+   steps:["<b>Before activation:</b> fix the Opportunity Products (amounts, quantities, the account's template type), then re-trigger the Project stage so the flow rebuilds the Order.",
+   "<b>After the Order exists but before invoices post:</b> the activation flow deletes and rebuilds Order Products from source, so correcting the Opportunity and re-triggering is cleanest.",
+   "<b>After invoices have posted:</b> don't edit history — instead issue a credit/adjustment on the wrong invoice and let the corrected schedule bill going forward (see Payments & Credits).",
+   "For a one-off wrong amount on the Order line, you can adjust the Order Product before the next billing run."],
+   note:"Overriding a live subscription touches money already billed — coordinate with SaaScend the first few times."},
+  {q:"How to create a one-time invoice that is related to the subscription",s:"standard",
+   obj:"A single ad-hoc charge (setup fee, hardware, true-up) tied to the same customer/subscription — not recurring.",
+   where:"<code>Order</code> (one-time) or a standalone <code>Invoice</code> linked to the account.",
+   steps:["Create a separate <b>Order</b> (or one-time Billing Schedule) on the same account for the ad-hoc item, keeping it distinct from the recurring schedule.",
+   "Add the one-time Order Product(s), Activate → a single invoice posts (no recurrence).",
+   "Relate it to the subscription via the account and, if useful, the same <b>Subscription Agreement Number</b> so it reports together.",
+   "It flows through the same pay-link / auto-charge / PDF path as any invoice."],
+   note:"Confirm in-org whether Groove prefers a one-time Order vs. a manual Invoice for ad-hoc charges — both work; pick one convention."}
+ ]},
+
+ {id:"config",icon:"⚙",title:"Configuring Subscriptions",sub:"Billing dates, discounts, taxes, line items, notes, PO numbers, back-billing.",topics:[
+  {q:"How to set up subscriptions for different billing dates (monthly, yearly)",s:"standard",
+   obj:"Control the cadence and the day money is billed.",
+   where:"<code>Billing Schedule</code> / <code>Billing Schedule Group</code> → Billing Term & Term Unit.",
+   steps:["Set <b>Billing Term Unit</b> = Months and <b>Billing Term</b> = 1 for monthly, or Term Unit = Years / Term = 1 for annual.",
+   "Set the <b>Billing Day of Month</b> (Groove's activation flow computes a 1st-or-15th start date automatically for new orders).",
+   "The <b>Next Billing Date</b> field shows when the next invoice generates; confirm it before the first run.",
+   "Yearly subscriptions post one invoice per year on that date."],
+   note:"Confirm the exact field names on Billing Schedule Group in-org (Billing Term / Term Unit / Bill Day of Month are the standard RCB fields)."},
+  {q:"How to handle discounts that only apply for a certain number of months",s:"standard",
+   obj:"E.g. \"$50 off for the first 3 months, then full price.\"",
+   where:"Order Product adjustments / a time-boxed discount line, or a scheduled amount change.",
+   steps:["Option A — <b>two lines/periods</b>: bill the discounted amount, and schedule the amount to step back up after N months (see \"update the monthly amount\").",
+   "Option B — <b>adjustment line</b>: add a negative Order Product (discount) and remove/expire it after the discount window.",
+   "Option C — <b>coupon-style</b> credit: apply a one-time or recurring Credit Memo for the discount amount for the first N invoices (see \"coupon\").",
+   "Set a reminder/task for when the discount ends so the price steps back up."],
+   note:"RCB doesn't auto-expire a discount by month-count out of the box the way Chargebee coupons do — pick the convention above and confirm with SaaScend which to standardize."},
+  {q:"How to create a subscription where taxes are shown on the invoice",s:"standard",
+   obj:"Show tax as a line/total on the invoice.",
+   where:"Tax settings on the Order/Invoice + the Conga template.",
+   steps:["Ensure the product/line is <b>taxable</b> and a <b>tax treatment / tax rate</b> is set on the Order or Billing Schedule.",
+   "RCB calculates <b>Total Tax Amount</b> / <b>Total With Tax</b> on the invoice.",
+   "Confirm the <b>Conga invoice template</b> displays the tax fields (Total Tax, Total With Tax) — if a template hides them, that's a template edit.",
+   "Post a test invoice and verify tax appears on the PDF."],
+   note:"Confirm the org's tax engine (native RCB tax vs. an external tax integration) during UAT — that determines exactly where the rate is set."},
+  {q:"How to create a subscription that has multiple line items",s:"tested",
+   obj:"Itemize several products on one invoice (e.g. Atria: TV Mounting + Digital Signage).",
+   where:"<code>Order</code> → multiple Order Products → Multi-Line template.",
+   steps:["Add each billable product as its own <b>Order Product</b> (line) with its own quantity and unit price.",
+   "Set the account's <b>Invoice Template Type = Multi-Line Itemized</b>.",
+   "On activation, the flow now creates <b>one Order line per product</b> (fixed in this build) — each renders as its own invoice line.",
+   "The invoice line totals sum to the subtotal; the Multi-Line Conga template shows the itemized list."],
+   sample:"Verified on the Atria multi-line order: 2 products (50×$15 + 50×$15) = $1,500 across two lines.",
+   note:"The Multi-Line Conga PDF template layout is being finalized (US-CONG-02, owned by Rory) — the data/lines are correct."},
+  {q:"How to update the notes that appear on recurring invoices",s:"standard",
+   obj:"Standing notes/messaging that print on every invoice for a customer.",
+   where:"A Notes/Description field on the Billing Schedule or Account, surfaced on the Conga template.",
+   steps:["Set the recurring note on the <b>Billing Schedule</b> (or Account) note/description field.",
+   "The Conga invoice template pulls that field into the <b>Notes</b> block on the PDF.",
+   "Update it once and all future invoices for that schedule pick it up."],
+   note:"Confirm which field feeds the template's Notes block in-org so Finance edits the right one."},
+  {q:"How to add a PO number in addition to our subscription agreement numbers",s:"standard",
+   obj:"Some customers require their PO on the invoice, alongside Groove's Subscription Agreement Number.",
+   where:"PO field on the Order/Invoice; Subscription Agreement Number field.",
+   steps:["Enter the customer <b>PO Number</b> in the PO field on the Order/Billing Schedule (so it carries to each invoice).",
+   "Groove's <b>Subscription Agreement Number</b> (<code>SubAgreement_Number__c</code>) stays as-is.",
+   "Confirm both fields are on the Conga template so both print on the PDF."],
+   note:"Confirm the PO field's exact API name in-org (add one if it doesn't exist yet)."},
+  {q:"How to make sure our Subscription Agreement Number is on reports",s:"tested",
+   obj:"Every reconciliation/aging report should show <code>SubAgreement_Number__c</code>.",
+   where:"Report Builder → Columns.",
+   steps:["Open the report → <b>Edit</b> → add <b>Subscription Agreement Number</b> as a column.",
+   "Save it into the standard report templates so it's always present.",
+   "For grouped reports, you can also group or filter by it."],
+   sample:"Field confirmed on Invoice as <code>SubAgreement_Number__c</code> (e.g. \"US-PAY-08 Test 0715 Test 2\")."},
+  {q:"How we handle back billing",s:"standard",
+   obj:"Billing a customer for a period that has already passed (late activation, retro start).",
+   where:"Billing Schedule start date / catch-up invoice.",
+   steps:["Set the Billing Schedule <b>start date</b> to the true (earlier) start — RCB will generate the missed period(s) as catch-up invoices.",
+   "Alternatively create a one-time invoice for the back-period amount (see one-time invoice).",
+   "Confirm the customer's Due Dates land correctly and, if auto-collect, whether you want to charge the back invoices immediately or send pay links."],
+   note:"Back-dated billing schedules can generate multiple invoices at once — verify the count before posting. Confirm the exact approach with SaaScend the first time."},
+  {q:"How to change the next billing date",s:"standard",
+   obj:"Push or pull the next invoice date for a customer.",
+   where:"<code>Billing Schedule Group</code> → Next Billing Date Override.",
+   steps:["Open the Billing Schedule Group → set the <b>Next Billing Date Override</b> to the new date.",
+   "Confirm the change saved and the schedule reflects the new date.",
+   "Note: on a <b>posted invoice</b> the Due Date is locked — this changes the <i>next</i> generation, not existing invoices."],
+   note:"Confirm the override field name in-org; on posted invoices DueDate is immutable (verified in UAT)."},
+  {q:"How to make something like a Chargebee coupon work",s:"standard",
+   obj:"Replicate a CB coupon (fixed or % discount, one-time or N-months).",
+   where:"Credit Memo (recurring or one-time) or a discount Order line.",
+   steps:["<b>Fixed one-time:</b> issue a one-time <b>Credit Memo</b> for the coupon amount against the first invoice.",
+   "<b>Recurring / N months:</b> apply a Credit Memo for the discount on each invoice for the coupon window, then stop.",
+   "<b>Percentage:</b> compute the amount per invoice and credit that, or use a discount Order Product line.",
+   "Track the coupon end so it doesn't run forever."],
+   note:"There's no native \"coupon code\" object; standardize on Credit Memos or discount lines. Confirm the chosen pattern with SaaScend."}
+ ]},
+
+ {id:"pricing",icon:"$",title:"Pricing & GL Changes",sub:"Amount changes, mass updates, and GL splits.",topics:[
+  {q:"How to update the monthly subscription amount manually",s:"standard",
+   obj:"Change one customer's recurring amount.",
+   where:"<code>Billing Schedule</code> / Order Product unit price.",
+   steps:["Open the Billing Schedule (or its Order Product) → update the <b>unit price / period amount</b>.",
+   "Confirm the <b>Billing Period Amount</b> reflects the new figure.",
+   "The next invoice generates at the new amount; already-posted invoices are unchanged."],
+   note:"Confirm whether Groove edits the Billing Schedule directly or amends the Order — verify the standard in UAT."},
+  {q:"How to mass-update the monthly subscription amount (annual price increases)",s:"standard",
+   obj:"Apply a price increase across many subscriptions at once (e.g. yearly uplift).",
+   where:"List view inline edit, Data Loader, or a report-driven update.",
+   steps:["Build a <b>report/list view</b> of the Billing Schedules to increase (filter by product, renewal month, etc.).",
+   "For a uniform change, use <b>inline edit</b> on a list view; for a large or %-based change, use <b>Data Loader</b> (export → adjust amounts → update).",
+   "Validate a handful, then run the full set; confirm next invoices reflect the new amounts.",
+   "Keep the export as your before/after record."],
+   note:"For %-based uplifts across hundreds of schedules, SaaScend can script/stage the update safely — coordinate the first cycle."},
+  {q:"How to set up how much of each invoice gets booked to different GLs",s:"config",
+   obj:"Split invoice revenue across GL accounts (the Certinia/AcctSeed side).",
+   where:"Product ↔ GL mapping in the accounting package (Certinia).",
+   steps:["GL coding is driven by the <b>product-to-GL mapping</b> and revenue recognition settings in Certinia/AcctSeed, not RCB itself.",
+   "Each product/line maps to a revenue GL; the split follows the line amounts on the invoice.",
+   "For a single product that must split across GLs, that's configured in the accounting mapping."],
+   note:"This is an accounting-config task (SaaScend + Groove's controller). We'll confirm the exact Certinia mapping screens together — not a day-to-day Finance action."},
+  {q:"How to update those GLs when we do have price increases",s:"config",
+   obj:"Keep GL bookings correct after amounts change.",
+   where:"Certinia GL mapping — usually automatic if mapping is by product.",
+   steps:["If GL coding is mapped by <b>product</b> (not hard-coded amounts), a price increase flows to the same GL automatically — no change needed.",
+   "Only if a price increase should route to a <b>different</b> GL do you update the product→GL mapping.",
+   "Verify the first post-increase invoice books to the expected GL."],
+   note:"Confirm the mapping approach with the controller/SaaScend; typically no per-increase action is required."}
+ ]},
+
+ {id:"invdoc",icon:"🖹",title:"Invoicing & Documents",sub:"PDFs, pay-links, and what the invoice looks like.",topics:[
+  {q:"How to download an invoice to PDF",s:"tested",
+   obj:"Get the Conga-generated PDF for a single invoice.",
+   where:"<code>Invoice</code> record → the generated document (Files) or Conga launch.",
+   steps:["Open the Invoice → the generated PDF is attached under <b>Files/Notes &amp; Attachments</b> once generated.",
+   "To (re)generate, launch the <b>Conga Composer</b> solution for that invoice's template type (Simple / Phone / Multi).",
+   "Download the file from the invoice."],
+   note:"Background auto-generation of the PDF on post is built on the Salesforce side (OBM + Conga params); the Conga-cloud enablement/PDF-vs-DOCX output is being finalized with Rory. Interactive Composer launch works today."},
+  {q:"How to resend an invoice with the payment link",s:"tested",
+   obj:"Email the customer a fresh hosted pay-link for an open invoice.",
+   where:"The invoice's <code>Charge Order</code> → new Payment Request with Send Email = TRUE.",
+   steps:["Open the invoice's linked <b>Charge Order</b>.",
+   "Create a <b>Payment Request</b> with <b>Send Payment Request Email = TRUE</b> and the <b>Email Address</b> set to the billing contact.",
+   "Chargent emails a hosted pay-link that applies straight back to the invoice.",
+   "The past-due <b>reminder flow</b> does this automatically at 30/60/90 days for invoice-only customers."],
+   sample:"Verified: reminder flow created Payment Requests 20260717-770/771 with Send Email=TRUE and the pay link.",
+   note:"The Payment Request needs its <b>Email Address</b> field populated (not just the Charge Order's Billing Email) — the reminder flow now sets this automatically."},
+  {q:"How a partial payment is handled with a payment link",s:"standard",
+   obj:"Customer pays part of the balance via the pay-link.",
+   where:"Chargent hosted pay page → Payment applied to the invoice.",
+   steps:["The customer can pay the full amount on the hosted page; partial amounts depend on whether the page allows an editable amount.",
+   "A partial payment records a <b>Payment</b> against the invoice and reduces the <b>Balance</b> (invoice becomes <i>Partially Paid</i>).",
+   "The remaining balance stays open and continues in reminders/dunning until settled."],
+   sample:"Seen live: DOC-000000001 shows Collection Status = Partially Paid with a remaining balance.",
+   note:"Confirm in-org whether the hosted page allows customer-edited partial amounts or is fixed to the invoice total."},
+  {q:"How notifications are set up when someone pays with a payment link",s:"standard",
+   obj:"Who gets told when a pay-link payment succeeds.",
+   where:"Chargent receipt settings + payment-applied automation.",
+   steps:["Chargent sends a <b>payment receipt</b> to the customer on success (and can CC internal addresses via the receipt CC field on the Charge Order).",
+   "Internally, the payment-applied flow updates the invoice to <b>Paid</b> and can notify AR.",
+   "Confirm the internal notification recipients during UAT."],
+   note:"Confirm the exact receipt/notification recipients and templates in-org."},
+  {q:"What it looks like when an invoice goes out",s:"tested",
+   obj:"The customer-facing invoice document + delivery.",
+   where:"Conga PDF + email delivery.",
+   steps:["The invoice is a <b>Conga-generated PDF</b> (Simple / Phone-Itemized / Multi-Line depending on the account) with header/branding, line items, totals, and — for invoice-only customers — a <b>Pay Now</b> link.",
+   "Invoice-only customers receive it with a hosted pay-link they can click to pay.",
+   "Auto-collect customers are charged automatically; the invoice is their record/receipt."],
+   note:"Template layouts (esp. Phone/Multi) and blank-Description are being finalized with Rory; Simple is the reference and includes the working Pay Link."},
+  {q:"How to pull PDFs for all open invoices (or all invoices)",s:"standard",
+   obj:"Batch-download documents for a period-end or audit.",
+   where:"Conga batch / a report-driven document run.",
+   steps:["Build an <b>Open Invoices</b> report (Status = Posted, Balance > 0).",
+   "Use a <b>Conga batch</b> (Conga Composer over the report) to generate/collect PDFs for all rows.",
+   "For \"all invoices,\" run the batch over an all-invoices report for the period."],
+   note:"Confirm whether a Conga batch/queue is configured for bulk PDF export in-org, or if it's one-at-a-time via Composer today."}
+ ]},
+
+ {id:"pay",icon:"◈",title:"Payments & Credits",sub:"Checks, cards, phone, credits, write-offs, and fixing misapplied payments.",topics:[
+  {q:"How to apply a check payment",s:"standard",
+   obj:"Record a check received against an open invoice.",
+   where:"<code>Payment</code> against the Invoice (Chargent \"check\"/manual payment or RCB Payment).",
+   steps:["From the invoice (or Charge Order), record a <b>manual/check Payment</b> for the amount and reference the check number.",
+   "Apply it to the invoice → the <b>Balance</b> reduces and status moves toward <b>Paid</b>.",
+   "No gateway charge is involved for checks."],
+   note:"Confirm whether Groove records checks as RCB Payments or Chargent manual transactions — standardize one path in UAT."},
+  {q:"How to apply a one-time credit card payment",s:"tested",
+   obj:"Take a single card payment now (not auto-pay).",
+   where:"Charge Order → Chargent Payment Console / pay-link.",
+   steps:["Open (or create) the <b>Charge Order</b> for the invoice.",
+   "In the Chargent <b>Payment Console</b>, enter a <b>new card</b> (or use a saved one), then <b>Charge</b>.",
+   "On approval, a Payment is applied to the invoice and the balance reduces.",
+   "<b>Never type a real card in the sandbox</b> — use Auth.Net sandbox test cards (e.g. 4111 1111 1111 1111)."],
+   note:"Verified: entering a fresh card and charging works; note the account-flip caveat — don't reuse another account's saved card."},
+  {q:"How to take a payment over the phone and have it auto-apply to the invoice",s:"tested",
+   obj:"CSR takes card details on a call; payment lands on the right invoice.",
+   where:"Charge Order (linked to the invoice) → Payment Console.",
+   steps:["Open the <b>Charge Order tied to the invoice</b> (so the payment auto-applies back to it).",
+   "Enter the card in the Payment Console and Charge.",
+   "The resulting Payment applies to the linked RCB invoice automatically and reduces the balance."],
+   note:"Auto-apply works because the Charge Order carries the RCB Invoice link. Take payment on the invoice's own Charge Order, not a blank one."},
+  {q:"How to issue a partial credit",s:"standard",
+   obj:"Credit part of an invoice (goodwill, dispute, partial return).",
+   where:"<code>Credit Memo</code> against the invoice.",
+   steps:["Create a <b>Credit Memo</b> for the partial amount linked to the invoice.",
+   "Apply it → the invoice balance reduces by the credit.",
+   "The credit is recorded for reconciliation and books to the GL accordingly."],
+   note:"CreditMemo is a native object here. Confirm the create/apply screen in-org."},
+  {q:"How to write off an invoice",s:"standard",
+   obj:"Close out an uncollectible balance.",
+   where:"Invoice → Write-Off (RCB WriteOffStatus / write-off action).",
+   steps:["On the invoice, use the <b>Write-Off</b> action → the balance is written off and <b>WriteOffStatus</b> updates.",
+   "The write-off books to the bad-debt/write-off GL on the accounting side.",
+   "The invoice drops out of open-AR and dunning."],
+   note:"Invoice has WriteOffStatus / WriteOff amount fields natively. Confirm the exact write-off action/button in-org during UAT."},
+  {q:"How to handle payments that didn't go through due to an issue on the customer's end",s:"tested",
+   obj:"A card/ACH declined (expired card, insufficient funds, bad ZIP).",
+   where:"Charge Order Transaction → invoice Collection Status.",
+   steps:["The failed charge creates a <b>Declined/Error Transaction</b>; the flow sets the invoice <b>Collection Status = Failed</b> and stores the gateway message in <b>Last Collection Error</b> (balance unchanged).",
+   "For <b>auto-collect</b> accounts, the <b>dunning</b> engine auto-retries at due+3 and due+6, then ends at due+61.",
+   "For <b>invoice-only</b> accounts, past-due <b>reminders</b> email a fresh pay-link at 30/60/90 days.",
+   "To fix: update the payment method (see auto-pay) and re-charge, or send a new pay-link."],
+   sample:"Verified end-to-end: a declined charge flips DOC to Collection Status = Failed with the error captured; dunning retries stamped on Failed invoices.",
+   note:"Force a test decline with Auth.Net sandbox card 4111… and billing ZIP 46282 (a fresh card, not a saved token)."},
+  {q:"How to move a payment that was applied to the wrong invoice",s:"standard",
+   obj:"A payment/credit landed on the wrong invoice.",
+   where:"<code>PaymentLineInvoice</code> (the application link) → reallocate.",
+   steps:["Find the <b>Payment</b> and its application (<b>Payment Line Invoice</b>) to the wrong invoice.",
+   "<b>Unapply</b> it from the wrong invoice, then <b>apply</b> it to the correct one (both balances update).",
+   "Confirm both invoices' balances/statuses are now correct."],
+   note:"PaymentLineInvoice is the native application object. Confirm the unapply/reapply action in-org — do the first one with SaaScend."}
+ ]},
+
+ {id:"autopay",icon:"↻",title:"Auto-Pay & Payment Methods",sub:"Card & bank auto-pay, updating methods, mixed subscriptions.",topics:[
+  {q:"How to set up auto-pay for a credit card",s:"tested",
+   obj:"Store a card so invoices charge automatically on post.",
+   where:"Chargent tokenization → Account token → Auto Collection = ON.",
+   steps:["<b>Tokenize the card</b>: on the Charge Order use Chargent's <b>New Payment Method / Tokenize</b> (or a $1 auth) to vault the card; the token stores on the Charge Order.",
+   "The token propagates to the <b>Account</b> (Chargent Payment Token) so future invoices reuse it.",
+   "Set the account <b>Auto Collection = ON</b> (or set the Chargebee Auto Collection picklist to <b>on</b>, which syncs it).",
+   "Now when an invoice posts, it auto-charges the stored card."],
+   sample:"Verified: auto-collect accounts create a Charge Order on post and auto-charge the stored token.",
+   note:"Never vault a real card in sandbox — use Auth.Net test cards."},
+  {q:"How to set up auto-pay for a bank account (ACH)",s:"standard",
+   obj:"Store bank details for ACH auto-pay.",
+   where:"Chargent bank/ACH payment method → token → Auto Collection = ON.",
+   steps:["Add a <b>bank account payment method</b> via Chargent on the Charge Order (routing/account) and tokenize it.",
+   "Set the payment method type to <b>ACH/bank</b> and Auto Collection = ON.",
+   "Invoices then auto-draft via ACH on post."],
+   note:"Confirm the Auth.Net/ACH sandbox setup and the exact bank-method screen in-org during UAT."},
+  {q:"How to update an auto-payment method and remove the old one",s:"standard",
+   obj:"Customer got a new card/bank; replace it cleanly.",
+   where:"Charge Order / Account payment methods.",
+   steps:["Add and <b>tokenize the new</b> payment method.",
+   "Point the account's stored token to the new method (update the Chargent Payment Token).",
+   "<b>Remove/deactivate the old</b> payment method so it can't be charged.",
+   "Run a $1 auth or wait for the next invoice to confirm the new method works."],
+   note:"Confirm the exact \"remove payment method\" step in-org; keep only one active token per account to avoid the wrong card being charged."},
+  {q:"How to handle a customer with multiple subscriptions — one on auto-pay, one not",s:"standard",
+   obj:"Same customer, mixed collection methods per subscription.",
+   where:"Auto Collection is per-Account today; per-subscription needs care.",
+   steps:["Auto Collection is evaluated at the <b>account</b> level, so a truly mixed setup usually means <b>separate billing accounts</b> (or a parent/child split) — one auto-collect, one invoice-only.",
+   "Alternatively keep one account auto-collect and handle the exception subscription with manual pay-links per invoice.",
+   "Confirm the intended structure with SaaScend so collections routes correctly for each subscription."],
+   note:"This is an important design point — flag it in UAT so we set the account structure right for your key mixed customers."}
+ ]},
+
+ {id:"collect",icon:"⏱",title:"Collections & Dunning",sub:"Retries, reminders, removing from dunning, the emails.",topics:[
+  {q:"How to remove an invoice from Dunning",s:"tested",
+   obj:"Stop the automated retries/reminders on an invoice (dispute, arrangement).",
+   where:"Invoice <code>Collection Status</code>.",
+   steps:["Dunning/reminders only run on specific statuses: retries on <b>Collection Status = Failed</b>; reminders on <b>Manual / Invoice Only</b>.",
+   "To pull an invoice out, change its <b>Collection Status</b> off those values (e.g. to a hold/paused status, or Paid once settled).",
+   "Confirm it no longer appears in the next dunning/reminder run."],
+   note:"Confirm whether Groove wants a dedicated \"On Hold\" collection status added for clean pausing — quick admin add if so."},
+  {q:"How dunning works (auto-charge retries) — reference",s:"tested",
+   obj:"So Finance knows what the system does on its own.",
+   where:"Flow <code>Invoice_Dunning_Retry</code> (scheduled daily).",
+   steps:["Scope: Posted, Balance &gt; 0, <b>Collection Status = Failed</b>, with a Charge Order.",
+   "<b>Retry 1</b> at due+3, <b>Retry 2</b> at due+6 (re-charges the stored card; Dunning Retry Count 0→1→2).",
+   "At <b>due+61</b> unpaid → Collection Status = <b>Dunning Ended – Not Paid</b>, no more retries."],
+   sample:"Verified: Failed invoices show Retry Count advancing; a +76-day invoice ended dunning correctly."},
+  {q:"How past-due reminders work (invoice-only) — reference",s:"tested",
+   obj:"Chargebee-parity 30/60/90 reminder emails.",
+   where:"Flow <code>Invoice_PastDue_Reminder</code> (scheduled daily).",
+   steps:["Scope: Posted, Balance &gt; 0, <b>Manual / Invoice Only</b>, has a Charge Order, not a migrated Chargebee invoice.",
+   "At <b>30 / 60 / 90</b> days past due it emails a fresh <b>pay-link</b> (Payment Request, Send Email=TRUE) and stamps Reminder Count.",
+   "Stops after day 90. Auto-collect (Failed) invoices are not touched — no double-contact."],
+   sample:"Verified: 30/60/90 all fire; Payment Requests created with Send Email=TRUE + email populated."},
+  {q:"What it looks like when a reminder email goes out",s:"tested",
+   obj:"The past-due reminder the customer receives.",
+   where:"Chargent Payment Request email.",
+   steps:["The customer gets a Chargent email with a <b>hosted Pay Now link</b> for that invoice.",
+   "Clicking it opens the Groove-branded payment page pre-loaded with the invoice amount.",
+   "Paying there applies straight back to the invoice and reduces the balance."],
+   note:"Confirm the reminder email's subject/branding/copy in-org; the mechanism and link are verified."},
+  {q:"What the payment-received email looks like",s:"standard",
+   obj:"The receipt the customer gets after paying.",
+   where:"Chargent receipt email on successful payment.",
+   steps:["On a successful charge, Chargent sends a <b>payment receipt</b> to the billing email confirming amount, date, and reference.",
+   "Internal AR can be CC'd via the Charge Order receipt-CC field."],
+   note:"Confirm the receipt template content/recipients in-org."}
+ ]},
+
+ {id:"cx",icon:"☺",title:"Customer Experience & Portal",sub:"What the customer sees, and managing portal access.",topics:[
+  {q:"What the customer sees when they click the payment link",s:"tested",
+   obj:"The hosted pay page.",
+   where:"Chargent hosted Payment Request page (public Site).",
+   steps:["A <b>Groove-branded payment page</b>: \"Welcome to Groove Technology Solutions…\" with card + billing-address fields and a <b>Confirm &amp; Pay $[amount]</b> button pre-filled to the invoice.",
+   "The customer enters payment details and pays; it applies to the invoice.",
+   "A declined attempt shows a generic \"Error: Please try again\" on the page (the real decline is recorded on the Transaction internally)."],
+   sample:"Verified live on DOC-000000005's pay link — form renders with the correct $174 amount."},
+  {q:"What the invoice looks like when it goes out (customer view)",s:"tested",
+   obj:"See \"What it looks like when an invoice goes out\" in Invoicing — the Conga PDF with a Pay Now link.",
+   where:"Conga PDF.",
+   steps:["Cross-reference: <b>Invoicing &amp; Documents → \"What it looks like when an invoice goes out.\"</b>"],
+   note:"Template polish (Phone/Multi) in progress with Rory; Simple is the reference."},
+  {q:"What the customer sees when they log into their portal",s:"standard",
+   obj:"The self-service portal view.",
+   where:"Groove customer portal (Experience Cloud site).",
+   steps:["The portal shows the customer their <b>open invoices, balances, and pay options</b> for their account.",
+   "They can view/download invoices and pay open balances.",
+   "Access is scoped to their account's records only."],
+   note:"The main customer portal site is currently under construction/maintenance in the sandbox — confirm the live portal's exact pages and layout with SaaScend before training on it."},
+  {q:"How to reset the customer's account so they can log into the portal",s:"standard",
+   obj:"Customer can't log in / needs a fresh invite.",
+   where:"Contact → portal user → reset/enable.",
+   steps:["Find the <b>Contact</b> and its portal <b>User</b> record.",
+   "Use <b>Reset Password</b> (or re-send the welcome/invite) on the portal user.",
+   "If they were never enabled, <b>Enable Customer User / Enable as Partner</b> on the Contact first."],
+   note:"Confirm the exact portal-user reset path in-org once the portal site is live."},
+  {q:"How to add multiple people who can access the customer portal",s:"standard",
+   obj:"Give several of the customer's staff portal logins.",
+   where:"Contacts on the account → enable each as a portal user.",
+   steps:["Add each person as a <b>Contact</b> on the account (see \"add multiple contacts\").",
+   "For each, <b>Enable Customer User</b> to create a portal login and send the invite.",
+   "Each logs in and sees the same account's billing info."],
+   note:"Confirm portal user licenses/limits with SaaScend before enabling many users."}
+ ]},
+
+ {id:"accts",icon:"👥",title:"Accounts, Contacts & Groupings",sub:"Contacts, billing contacts, groupings, parent billing.",topics:[
+  {q:"How to update billing contacts",s:"tested",
+   obj:"Change who the invoice/pay-link goes to.",
+   where:"Account <code>Invoice Emails</code> and the Order/Charge Order Bill-To.",
+   steps:["Set the account's <b>Invoice Emails</b> to the correct address(es). <b>Important:</b> the Charge Order uses the <b>first</b> address if several are listed.",
+   "For future invoices, the billing email flows from the account onto the Charge Order at creation.",
+   "For an existing Charge Order, set its <b>Billing Email</b> (and, for a pay-link, the Payment Request's Email Address) directly.",
+   "The Order's <b>Bill-To Contact</b> sets the invoice recipient of record."],
+   sample:"Verified: multi-address Invoice Emails now uses only the first valid address (fixed a bug that blocked Charge Order creation)."},
+  {q:"How to add multiple contacts to the account",s:"tested",
+   obj:"Multiple people on one customer account.",
+   where:"Account → Contacts related list.",
+   steps:["On the Account → <b>Contacts</b> related list → <b>New</b> for each person (name, email, role).",
+   "Mark the primary/billing contact as needed.",
+   "These become candidates for Bill-To, portal access, and notifications."],
+   sample:"Accounts like Dazeworks Test1 Hello already carry 20+ contacts."},
+  {q:"How to set up customer groupings (key customers with multiple properties)",s:"standard",
+   obj:"Group many property accounts under one key customer for reporting/billing.",
+   where:"Account hierarchy (Parent Account) or a grouping field.",
+   steps:["Use the <b>Parent Account</b> hierarchy: set each property account's <b>Parent</b> to the key-customer account.",
+   "Alternatively add a <b>Customer Group</b> field to tag related accounts.",
+   "Reports and aging can then roll up/filter by the parent or group."],
+   sample:"Atria properties are already parented under \"Atria Senior Living Corp Office\"; Cardinal is another parent."},
+  {q:"How to pull an aging report for just one grouping",s:"standard",
+   obj:"Aging for one key customer's whole family of properties.",
+   where:"Aging report → filter by Parent Account / Customer Group.",
+   steps:["Open the <b>Aging</b> report → add a filter on <b>Account Parent = [key customer]</b> (or Customer Group = X).",
+   "Group by property account within it.",
+   "Save as a customer-specific aging view."],
+   note:"Confirm the aging report exists and supports the parent filter in-org (see Reporting)."},
+  {q:"How parent billing is handled (one subscription billed to the parent)",s:"tested",
+   obj:"Some customers pay for one subscription at the parent level while others bill locally.",
+   where:"Bill-To resolution: account contact, else parent account contact.",
+   steps:["The activation flow sets the invoice <b>Bill-To</b> from the property account's contact; if none, it <b>falls back to the parent account's</b> contact.",
+   "So a subscription can be billed to the parent by having the Bill-To resolve to the parent contact.",
+   "Mixed cases (one sub to parent, one local) are handled per-Order Bill-To."],
+   sample:"Verified: the flow's parent-contact fallback activates orders billed to the parent when the local account has no contact."},
+  {q:"How to handle customers with multiple subscriptions",s:"standard",
+   obj:"One account, several concurrent subscriptions.",
+   where:"Multiple Orders / Billing Schedules under one account.",
+   steps:["Each subscription is its own <b>Order → Billing Schedule</b>; an account can have many.",
+   "Invoices, pay-links, and dunning operate per invoice, so each subscription bills independently.",
+   "For mixed auto/manual collection across subs, see the Auto-Pay section."]}
+ ]},
+
+ {id:"report",icon:"📊",title:"Reporting & Reconciliation",sub:"Balances, statements, aging, GL reconciliation, counts.",topics:[
+  {q:"How to see what invoices are open",s:"standard",
+   obj:"Current open AR.",
+   where:"Invoices list view / report.",
+   steps:["Open <b>Invoices</b> → filter <b>Status = Posted</b> and <b>Balance &gt; 0</b>.",
+   "Save as an <b>\"Open Invoices\"</b> list view/report; add Account, Due Date, Balance, Collection Status, Subscription Agreement Number.",
+   "Sort by Due Date for a working AR list."],
+   sample:"Open invoices in the sandbox include DOC-000000005 ($174), DOC-000000029 ($5,000), etc."},
+  {q:"How to see what the next monthly payment is",s:"standard",
+   obj:"What/when the customer is billed next.",
+   where:"Billing Schedule Group → Next Billing Date + Period Amount.",
+   steps:["Open the account's <b>Billing Schedule Group</b> → read <b>Next Billing Date</b> and <b>Billing Period Amount</b>.",
+   "Or surface these as roll-ups on the Account for a quick glance."],
+   note:"Confirm the exact field labels in-org."},
+  {q:"How to research the payments applied",s:"standard",
+   obj:"See how a customer's payments/credits hit their invoices.",
+   where:"<code>Payment</code> / <code>PaymentLineInvoice</code> related lists.",
+   steps:["On the invoice → <b>Payments</b> related list shows each applied payment and amount.",
+   "On the Account → review <b>Payments</b> and <b>Payment Line Invoices</b> for the full application history.",
+   "Chargent <b>Transactions</b> show the gateway-level detail (auth codes, decline reasons)."]},
+  {q:"How to see a customer statement",s:"standard",
+   obj:"A statement of the customer's invoices/payments/balance.",
+   where:"Statement report or Conga statement doc.",
+   steps:["Run a <b>customer statement</b> report grouped by account showing invoices, payments, and running balance for a period.",
+   "Or generate a Conga <b>statement</b> document if a statement template is configured."],
+   note:"Confirm whether a statement report/Conga statement template exists in-org, or if we should build one."},
+  {q:"How to pull the aging reports",s:"standard",
+   obj:"AR aging by bucket (current / 30 / 60 / 90+).",
+   where:"Reports → Aging.",
+   steps:["Open the <b>AR Aging</b> report (Invoices with Balance &gt; 0, bucketed by days past Due Date).",
+   "Group by Account (or parent for key customers); columns: Balance, Due Date, Days Overdue, Collection Status.",
+   "Filter by date/entity as needed."],
+   note:"Confirm the standard aging report/report type exists in-org; days-overdue is derivable from Due Date."},
+  {q:"How to see how many active subscriptions or customers we have",s:"standard",
+   obj:"Portfolio counts.",
+   where:"Reports on Billing Schedules / Accounts.",
+   steps:["<b>Active subscriptions:</b> report on <b>Billing Schedules</b> with Status = Active (count).",
+   "<b>Active customers:</b> report on Accounts with an active billing schedule (count distinct).",
+   "Save as dashboard tiles for a running total."]},
+  {q:"How to see when a customer's contract is done (payoffs / customer questions)",s:"standard",
+   obj:"Contract end date and remaining obligation.",
+   where:"<code>Contract</code> / Billing Schedule end date.",
+   steps:["Open the <b>Contract</b> (or Billing Schedule) → read the <b>End Date</b>.",
+   "Remaining amount = periods left × period amount (for payoff quotes).",
+   "Report on Contracts by End Date for upcoming completions/renewals."],
+   note:"Contract object is present; confirm which of Contract vs Billing Schedule Groove treats as the term of record."},
+  {q:"Different report types for reconciliation, aging, turnover, etc.",s:"standard",
+   obj:"The reporting toolkit for Finance.",
+   where:"Reports → custom report types on RCB objects.",
+   steps:["<b>Reconciliation:</b> Invoices + Payments + Credit Memos for a period (billed vs collected).",
+   "<b>Aging:</b> open invoices bucketed by days overdue.",
+   "<b>Turnover / revenue:</b> Invoice amounts by period/product.",
+   "<b>Collections:</b> Failed/Dunning invoices, retry counts, reminder counts.",
+   "<b>Churn/active:</b> Billing Schedules started/ended per period."],
+   note:"Confirm which custom report types exist on the RCB objects in-org; we can add any missing ones."},
+  {q:"How to reconcile RCB to the General Ledger (what reports are available)",s:"config",
+   obj:"Tie RCB billing/collections to the Certinia GL.",
+   where:"RCB reports ↔ Certinia GL reports.",
+   steps:["From RCB: total <b>invoiced</b> (revenue) and <b>payments/credits</b> for the period.",
+   "From Certinia: the corresponding <b>GL/journal</b> postings for revenue, AR, cash, and write-offs.",
+   "Match RCB totals to the GL control accounts; investigate variances by invoice.",
+   "Standardize a period-end reconciliation pack (RCB summary + GL summary)."],
+   note:"The GL side is Certinia/AcctSeed — confirm the exact GL reports and posting behavior with the controller/SaaScend."},
+  {q:"What happens with the GLs when a payment is applied",s:"config",
+   obj:"The accounting entry on collection.",
+   where:"Certinia posting.",
+   steps:["Applying a payment typically <b>debits Cash</b> and <b>credits Accounts Receivable</b> for that invoice on the GL side.",
+   "The invoice AR balance clears as the payment applies.",
+   "Exact accounts/timing depend on the Certinia mapping."],
+   note:"Confirm the posting behavior/accounts with the controller — this is accounting config, not a Finance day-to-day click."},
+  {q:"What happens with the GLs when an invoice is written off",s:"config",
+   obj:"The accounting entry on write-off.",
+   where:"Certinia posting.",
+   steps:["A write-off typically <b>debits Bad Debt Expense</b> (or a write-off account) and <b>credits AR</b>, clearing the balance.",
+   "The invoice's WriteOffStatus updates and it leaves open AR."],
+   note:"Confirm the write-off GL account/mapping with the controller."}
+ ]},
+
+ {id:"life",icon:"⎋",title:"Lifecycle & Troubleshooting",sub:"Stopping subscriptions, bounced email, failed payments.",topics:[
+  {q:"How to stop a subscription early",s:"standard",
+   obj:"Cancel/terminate before the natural end.",
+   where:"Billing Schedule → cancellation date / status.",
+   steps:["Set the Billing Schedule (Group) <b>Cancellation Date</b> / status to end the recurrence.",
+   "Confirm no further invoices will generate after that date.",
+   "Handle any final/partial-period invoice and settle the remaining balance."],
+   note:"Confirm the exact cancel action and whether a proration/final invoice is expected — do the first one with SaaScend."},
+  {q:"How to see if a payment failed",s:"tested",
+   obj:"Find failed collections quickly.",
+   where:"Invoice Collection Status + Charge Order Transactions.",
+   steps:["Invoice <b>Collection Status = Failed</b> and <b>Last Collection Error</b> shows the gateway message.",
+   "The Charge Order's <b>Transactions</b> show the declined/error transaction with the response.",
+   "Build a <b>\"Failed Payments\"</b> report on Collection Status = Failed for a daily worklist."],
+   sample:"Verified: declines flip the invoice to Failed and capture the message (e.g. \"This transaction has been declined\")."},
+  {q:"How to see if an email bounced",s:"standard",
+   obj:"Know when an invoice/reminder email didn't reach the customer.",
+   where:"Email deliverability / bounce tracking.",
+   steps:["Check the Contact/Lead <b>Email Bounced</b> flag and reason (Salesforce marks bounced addresses).",
+   "For Chargent pay-link emails, check the Charge Order/Payment Request <b>Last Email Dispatch Status</b> and the invoice's email status field.",
+   "Fix the address (Invoice Emails) and resend."],
+   note:"Confirm the exact bounce-tracking fields/setup in-org; the invoice has a LastEmailDispatchStatus field natively."},
+  {q:"How to handle customers with multiple subscriptions where one is auto-pay and one isn't",s:"standard",
+   obj:"See Auto-Pay → \"one on auto-pay, one not.\"",
+   where:"Account structure / per-Order collection.",
+   steps:["Cross-reference: <b>Auto-Pay &amp; Payment Methods</b> → mixed collection. Usually a parent/child or separate-account split; confirm structure with SaaScend."]}
+ ]}
+];
+
+// ---- render ----
+const orl=document.getElementById('orglinks');
+ORGLINKS.forEach(([t,u])=>{const a=document.createElement('a');a.href=u;a.target="_blank";a.rel="noopener";a.textContent=t;orl.appendChild(a);});
+
+const BADGE={tested:["b-tested","Built & tested"],standard:["b-standard","Confirm in org"],config:["b-config","Admin / config"]};
+const content=document.getElementById('content');
+const navlist=document.getElementById('navlist');
+let counter=0;
+DATA.forEach(sec=>{
+  const na=document.createElement('a');na.className="navsec";na.href="#"+sec.id;
+  na.innerHTML=sec.title+" <span class='n'>"+sec.topics.length+"</span>";navlist.appendChild(na);
+  const s=document.createElement('section');s.className="sec";s.id=sec.id;
+  s.innerHTML="<h2><span class='ic'>"+sec.icon+"</span>"+sec.title+"</h2><p class='subtitle'>"+sec.sub+"</p>";
+  sec.topics.forEach(tp=>{
+    counter++;
+    const [cls,lbl]=BADGE[tp.s]||BADGE.standard;
+    const d=document.createElement('div');d.className="topic";d.dataset.text=(tp.q+" "+(tp.obj||"")).toLowerCase();
+    let steps=(tp.steps||[]).map(x=>"<li>"+x+"</li>").join("");
+    d.innerHTML=
+      "<button class='q'><span class='bwrap'><span class='badge "+cls+"'>"+lbl+"</span></span>"+tp.q+"<span class='chev'>▸</span></button>"+
+      "<div class='body'>"+
+        (tp.obj?"<div class='lbl'>Objective</div><p>"+tp.obj+"</p>":"")+
+        (tp.where?"<div class='lbl'>Where</div><div class='where'>"+tp.where+"</div>":"")+
+        (steps?"<div class='lbl'>Steps</div><ol>"+steps+"</ol>":"")+
+        (tp.sample?"<div class='sample'>🔎 <b>Sample / verified:</b> "+tp.sample+"</div>":"")+
+        (tp.note?"<div class='note'>⚠ <b>Note:</b> "+tp.note+"</div>":"")+
+      "</div>";
+    d.querySelector('button.q').addEventListener('click',()=>d.classList.toggle('open'));
+    s.appendChild(d);
+  });
+  content.appendChild(s);
+});
+
+// ---- search ----
+const search=document.getElementById('search');
+const nohits=document.getElementById('nohits');
+search.addEventListener('input',()=>{
+  const q=search.value.trim().toLowerCase();let any=false;
+  document.querySelectorAll('section.sec').forEach(sec=>{
+    let secHas=false;
+    sec.querySelectorAll('.topic').forEach(t=>{
+      const hit=!q||t.dataset.text.includes(q);
+      t.style.display=hit?"":"none";
+      if(hit){secHas=true;any=true;}
+      if(q&&hit)t.classList.add('open');else if(q)t.classList.remove('open');
+    });
+    sec.style.display=secHas?"":"none";
+  });
+  nohits.style.display=any?"none":"block";
+});
+</script>
+</body>
+</html>
