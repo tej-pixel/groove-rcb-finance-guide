@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Groove RCB — Finance UAT Run-Sheet</title>
+<style>
+:root{--navy:#0f2a43;--navy2:#163a5c;--teal:#1fb6a6;--teal-d:#159487;--ink:#1b2733;--muted:#5b6b7b;--line:#e3e9ef;--bg:#f5f7fa;--card:#fff;--amber:#e08a1e;--green:#22a06b;--blue:#2f7ad1;--red:#d6455b}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+a{color:var(--teal-d)} a:hover{text-decoration:underline}
+header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:24px 30px 20px}
+header.top .kick{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700}
+header.top h1{margin:6px 0 4px;font-size:24px}
+header.top p{margin:0;color:#c6d4e2;font-size:13.5px;max-width:860px}
+.bar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.bar a.btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#eaf1f8;padding:6px 13px;border-radius:8px;font-size:13px}
+.bar a.btn:hover{background:rgba(31,182,166,.28);text-decoration:none}
+.prog{color:#eaf1f8;font-size:13px}
+.prog b{color:var(--teal)}
+.wrap{max-width:1120px;margin:0 auto;padding:22px 26px 80px}
+.howto{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-bottom:22px;font-size:13px;color:var(--muted)}
+.howto b{color:var(--ink)}
+.station{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:20px;overflow:hidden}
+.station>h2{margin:0;padding:14px 18px;font-size:16.5px;background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px}
+.station>h2 .num{background:var(--teal);color:var(--navy);width:26px;height:26px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:0 0 26px}
+.station>h2 .open{margin-left:auto;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;padding:4px 10px;border-radius:7px;text-decoration:none}
+.station>h2 .open:hover{background:var(--teal);color:var(--navy)}
+.stnote{padding:9px 18px;font-size:12.5px;color:var(--muted);background:#fafcfe;border-bottom:1px solid var(--line)}
+.stnote.warn{color:var(--amber)} .stnote.red{color:var(--red)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--line);background:#f8fafc}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.chk{text-align:center;width:38px}
+td.chk input{width:17px;height:17px;cursor:pointer}
+.topic{font-weight:600}
+.do{color:var(--muted);font-size:13px}
+.do code{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:12px;color:var(--navy)}
+th.c,td.c{text-align:center;width:44px}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:1px 6px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.t-act{background:#fdf1e0;color:var(--amber)} .t-view{background:#e6f6ee;color:var(--green)} .t-blk{background:#fdf0f2;color:var(--red)}
+tr.done{background:#f3faf6}
+@media print{header.top .bar,.howto{display:none}body{background:#fff}.station{break-inside:avoid}}
+@media(max-width:760px){th.hidem,td.hidem{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="kick">SaaScend × Groove · Revenue Cloud Billing</div>
+  <h1>Finance UAT Run-Sheet</h1>
+  <p>Work top-to-bottom. Each <b>Station</b> is one screen/record — park there and validate every row before moving on. Tick <b>✓</b> when confirmed and <b>📸</b> once a screenshot is captured. Progress saves in your browser. This is the script for the live UAT session where we flip the guide's “Confirm in org” badges to “Built &amp; tested.”</p>
+  <div class="bar">
+    <a class="btn" href="./index.html">← Back to the Guide</a>
+    <a class="btn" href="#" onclick="window.print();return false">🖨 Print / Save PDF</a>
+    <a class="btn" href="#" onclick="if(confirm('Reset all checkboxes?')){localStorage.clear();location.reload()}return false">↺ Reset checks</a>
+    <span class="prog" id="prog"></span>
+  </div>
+</header>
+<div class="wrap">
+  <div class="howto">
+    <b>Legend:</b>
+    <span class="tag t-view">View</span> just open &amp; confirm ·
+    <span class="tag t-act">Action</span> a real action — screenshot the screen; only <i>execute</i> non-financial ones (never charge a real card / post a write-off in prod) ·
+    <span class="tag t-blk">Blocked</span> needs the portal/GL owner (SaaScend + controller), park for a follow-up.
+    <br/><b>Tip:</b> keep the <a href="./index.html">Guide</a> open in a second tab — each row maps to a guide topic.
+  </div>
+  <div id="content"></div>
+</div>
+<script>
+const B="https://groove--fc.sandbox.lightning.force.com";
+const STATIONS=[
+ {n:1,title:"Sample Invoice — DOC-000000005",open:B+"/lightning/r/Invoice/3ttVB0000002K97YAE/view",
+  note:"The House Apartments · invoice-only · $174 · has a pay-link. Most invoice + document topics live here.",
+  rows:[
+   ["View","What an invoice looks like when it goes out","Open the invoice → <b>Files</b> tab → open the generated Conga PDF. Screenshot the PDF."],
+   ["View","How to download an invoice to PDF","From <b>Files</b>, download the PDF. If none, launch <b>Conga Composer</b> for this invoice's template."],
+   ["View","How to see what invoices are open","Confirm <code>Status=Posted</code>, <code>Balance&gt;0</code>. Then Invoices tab → save an <b>Open Invoices</b> list (Balance&gt;0)."],
+   ["View","How to research the payments applied","<b>Related</b> tab → Payments / Payment Line Invoices related lists."],
+   ["View","Subscription Agreement # on the invoice","Confirm <code>Subscription Agreement Number</code> is populated/visible."],
+   ["Action","How to resend an invoice with the payment link","Open the linked <b>Charge Order</b> → new <b>Payment Request</b>, Send Email=TRUE, Email Address set. (Execute OK — sends to a test inbox.) Screenshot."],
+   ["View","What the customer sees on the payment link","Open the invoice's <code>Pay_Link__c</code> URL in a private window → screenshot the hosted pay page."],
+   ["Action","How to add a PO number","Set the PO field on the Order/Invoice; confirm it prints on the PDF. Screenshot the field."],
+   ["View","Notes on recurring invoices","Confirm which field feeds the PDF <b>Notes</b> block (Billing Schedule / Account)."]
+  ]},
+ {n:2,title:"Billing Schedule Group — the recurring plan",open:B+"/lightning/o/BillingScheduleGroup/list",
+  note:"Open the BSG for an active account (e.g. The House). Subscription-config + lifecycle topics.",
+  rows:[
+   ["View","How to see what the next monthly payment is","Read <b>Next Billing Date</b> + <b>Billing Period Amount</b>."],
+   ["View","Billing dates — monthly vs yearly","Confirm <b>Billing Term</b> / <b>Term Unit</b> (1 Month vs 1 Year) + <b>Bill Day of Month</b>."],
+   ["Action","How to change the next billing date","Set <b>Next Billing Date Override</b> to a new date; confirm it saves. Screenshot."],
+   ["Action","How to update the monthly amount manually","Edit the unit price / period amount; confirm Billing Period Amount updates. Screenshot."],
+   ["Action","How to stop a subscription early","Locate the <b>Cancellation Date</b> / status field; confirm the cancel path (don't cancel a live one). Screenshot."],
+   ["View","How we handle back billing","Confirm the schedule <b>Start Date</b> drives catch-up invoices; note the approach."],
+   ["View","How to see when a customer's contract is done","Open the related <b>Contract</b> (or BSG End Date) → read End Date."]
+  ]},
+ {n:3,title:"Account — orientation, contacts, groupings",open:B+"/lightning/r/Account/0011Q000021iBE0QAM/view",
+  note:"The House Apartments. For groupings/parent billing also open the Atria parent (link in each row).",
+  rows:[
+   ["View","RCB vs the rest of Certinia on the account","Related tab → identify RCB lists (Orders/Billing Schedules/Invoices/Payments) vs Certinia (<code>c2g__</code>/AcctSeed) vs Chargent (Charge Orders). Screenshot."],
+   ["View","Basic info without RCB access (open balance / bill)","Confirm an Account roll-up (Open Balance / Next Payment) exists on the layout — or note to add one."],
+   ["Action","How to update billing contacts","Set <b>Invoice Emails</b> (first address is used). Screenshot the field."],
+   ["Action","How to add multiple contacts to the account","Contacts related list → New. Confirm several contacts. Screenshot."],
+   ["View","Customer groupings (multi-property)","Open the <b>Atria parent</b> (<a href='"+B+"/lightning/r/Account/0011Q00002TjU5rQAF/view' target='_blank'>Atria Senior Living Corp Office</a>) → confirm child properties via Parent Account. Screenshot."],
+   ["View","How parent billing is handled","Confirm Bill-To resolves to the parent contact when the local account has none."],
+   ["View","Customers with multiple subscriptions","Confirm multiple Orders / Billing Schedules can sit under one account."]
+  ]},
+ {n:4,title:"Charge Order, Transactions & Payment Methods",open:B+"/lightning/r/ChargentOrders__ChargentOrder__c/a2fVB0000019CW1YAM/view",
+  note:"Chargent side. Payments, auto-pay, and failed-payment visibility. NEVER enter a real card — Auth.Net sandbox test cards only.",
+  rows:[
+   ["View","How to see if a payment failed","Transactions related list → Declined/Error rows; invoice shows <b>Collection Status=Failed</b> + <b>Last Collection Error</b>. Screenshot."],
+   ["Action","How to apply a one-time credit card payment","Payment Console → new card <code>4111 1111 1111 1111</code> → Charge. Screenshot the console (executing a sandbox test charge is fine)."],
+   ["Action","How to take a phone payment that auto-applies","Charge on the invoice's own Charge Order so it applies back automatically. Screenshot."],
+   ["Action","How to apply a check payment","Record a manual/check Payment against the invoice. Screenshot the screen."],
+   ["Action","How to move a payment applied to the wrong invoice","Find the Payment Line Invoice → unapply/reapply to the correct invoice. Screenshot (don't move a real one)."],
+   ["Action","How to set up auto-pay for a credit card","Tokenize a card → token on Account → <b>Auto Collection=ON</b>. Screenshot the tokenize screen."],
+   ["Action","How to set up auto-pay for a bank account (ACH)","Add a bank/ACH payment method + tokenize → Auto Collection=ON. Screenshot."],
+   ["Action","How to update an auto-pay method &amp; remove the old","Tokenize new → point Account token to it → remove/deactivate old. Screenshot."],
+   ["View","Mixed subs — one auto-pay, one not","Design note: confirm account structure (parent/child or separate accounts). Decide convention."]
+  ]},
+ {n:5,title:"Reports & Reconciliation",open:B+"/lightning/o/Report/home",
+  note:"Reports home. Confirm which report types/folders exist; add columns as needed.",
+  rows:[
+   ["View","Open invoices report","Invoices, Status=Posted, Balance&gt;0. Save the standard view. Screenshot."],
+   ["View","Aging report","AR aging bucketed by days past Due Date. Confirm it exists / build it. Screenshot."],
+   ["View","Aging report for one grouping","Add filter <b>Account Parent = [key customer]</b> (Atria). Screenshot."],
+   ["View","How many active subscriptions / customers","Report on Billing Schedules (Active) count + distinct Accounts. Screenshot."],
+   ["View","Customer statement","Confirm a statement report / Conga statement template exists — or note to build."],
+   ["View","Report types (reconciliation / aging / turnover)","Confirm custom report types on Invoice / Payment / Credit Memo. List gaps."],
+   ["Action","Subscription Agreement # on reports","Add <b>Subscription Agreement Number</b> as a column to the standard reports. Screenshot."],
+   ["Blocked","Reconcile RCB to the General Ledger","Match RCB invoiced/collected totals to Certinia GL reports — with the controller/SaaScend."]
+  ]},
+ {n:6,title:"Invoice Actions — write-off, credit, dunning",open:B+"/lightning/r/Invoice/3ttVB0000002K97YAE/view",
+  note:"Invoice-level actions. Screenshot the action screens; do NOT post write-offs/credits in a real environment.",
+  rows:[
+   ["Action","How to write off an invoice","Invoice → <b>Write-Off</b> action; confirm the screen + WriteOffStatus. Screenshot (don't post)."],
+   ["Action","How to issue a partial credit","Create a <b>Credit Memo</b> for a partial amount against the invoice. Screenshot the screen."],
+   ["Action","How to apply a one-time credit","Apply a Credit Memo to the invoice; confirm balance drops. Screenshot."],
+   ["Action","How to remove an invoice from Dunning","Change <b>Collection Status</b> off Failed / Man-Invoice-Only (e.g. to a hold). Screenshot."]
+  ]},
+ {n:7,title:"Customer Portal",open:B+"/lightning/setup/SetupNetworks/home",
+  note:"⚠ The customer portal sites are currently under construction/maintenance in this org — validate these once the live portal is up.",
+  warn:true,
+  rows:[
+   ["Blocked","What the customer sees when they log into the portal","Open the live portal as a test community user. Screenshot."],
+   ["Blocked","How to reset the customer's portal login","Contact → portal User → Reset Password / re-invite."],
+   ["Blocked","How to add multiple people to the portal","Enable each Contact as a Customer User; confirm licenses."]
+  ]},
+ {n:8,title:"Certinia GL (Accounting)",open:B,
+  note:"⚠ Accounting/GL config — validate with Groove's controller + SaaScend, not day-to-day Finance.",
+  red:true,
+  rows:[
+   ["Blocked","How much of each invoice books to different GLs","Confirm the product→GL mapping in Certinia/AcctSeed."],
+   ["Blocked","Update those GLs on price increases","Confirm mapping is by product (usually no per-increase change)."],
+   ["Blocked","What happens to GLs when a payment is applied","Confirm the Cash/AR posting on the GL side."],
+   ["Blocked","What happens to GLs when an invoice is written off","Confirm the Bad-Debt/AR posting."]
+  ]},
+ {n:9,title:"Setup, Conventions & Misc",open:B,
+  note:"Config/admin tasks and convention decisions to lock in during UAT.",
+  rows:[
+   ["Action","How to start a subscription manually (all types)","New Order → Order Products → set Invoice Template Type → Activate. Screenshot."],
+   ["Action","How to override the Opportunity subscription setup","Fix Opp products/template type → re-trigger the Project stage. Screenshot."],
+   ["Action","How to create a one-time invoice related to the subscription","Separate one-time Order on the same account. Decide convention."],
+   ["View","How to create a subscription with multiple line items","Multiple Order Products + Multi-Line template (already tested). Confirm PDF once Rory finalizes template."],
+   ["View","How to create a subscription showing taxes","Confirm tax rate/treatment + that the Conga template shows tax. Screenshot."],
+   ["View","Discounts for a set number of months","Decide convention: Credit Memo for N invoices vs discount line. Lock it in."],
+   ["View","Coupon (Chargebee-style)","Decide convention: recurring/one-time Credit Memo. Lock it in."],
+   ["Action","How to mass-update monthly amounts (annual increase)","List-view inline edit or Data Loader over Billing Schedules. Dry-run a few."],
+   ["Action","How to pull PDFs for all open / all invoices","Confirm a Conga batch over an Open Invoices report — or note to configure."],
+   ["View","How to see if an email bounced","Confirm the Contact <b>Email Bounced</b> flag + invoice <b>Last Email Dispatch Status</b>. Screenshot."]
+  ]}
+];
+
+const TAG={View:["t-view","View"],Action:["t-act","Action"],Blocked:["t-blk","Blocked"]};
+const c=document.getElementById('content');let total=0;
+STATIONS.forEach(st=>{
+  const sec=document.createElement('div');sec.className="station";
+  let rows="";
+  st.rows.forEach((r,i)=>{
+    total++;
+    const [cls,lbl]=TAG[r[0]]||TAG.View;
+    const key="rs_"+st.n+"_"+i;
+    rows+="<tr data-key='"+key+"'>"+
+      "<td class='c'><span class='tag "+cls+"'>"+lbl+"</span></td>"+
+      "<td><span class='topic'>"+r[1]+"</span></td>"+
+      "<td class='do'>"+r[2]+"</td>"+
+      "<td class='chk'><input type='checkbox' data-k='"+key+"_v' title='Validated'></td>"+
+      "<td class='chk hidem'><input type='checkbox' data-k='"+key+"_s' title='Screenshot captured'></td>"+
+      "</tr>";
+  });
+  sec.innerHTML="<h2><span class='num'>"+st.n+"</span>"+st.title+"<a class='open' href='"+st.open+"' target='_blank' rel='noopener'>Open screen ↗</a></h2>"+
+    "<div class='stnote"+(st.warn?" warn":"")+(st.red?" red":"")+"'>"+st.note+"</div>"+
+    "<table><thead><tr><th class='c'>Type</th><th>Topic</th><th>Do / Confirm</th><th class='c'>✓</th><th class='c hidem'>📸</th></tr></thead><tbody>"+rows+"</tbody></table>";
+  c.appendChild(sec);
+});
+
+// persistence + progress
+const prog=document.getElementById('prog');
+function refresh(){
+  let done=0,n=0;
+  document.querySelectorAll("input[data-k]").forEach(cb=>{
+    const on=localStorage.getItem(cb.dataset.k)==="1";cb.checked=on;
+    if(cb.dataset.k.endsWith("_v")){n++;if(on)done++;}
+    const tr=cb.closest('tr');if(tr){const v=localStorage.getItem(tr.dataset.key+"_v")==="1";tr.classList.toggle('done',v);}
+  });
+  prog.innerHTML="Validated <b>"+done+"</b> / "+n+" topics";
+}
+document.addEventListener('change',e=>{
+  if(e.target.matches("input[data-k]")){localStorage.setItem(e.target.dataset.k,e.target.checked?"1":"0");refresh();}
+});
+refresh();
+</script>
+</body>
+</html>
